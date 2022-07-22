@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\DocBlock\Tags\Author;
 use Illuminate\Support\Facades\Auth;
-use App\Components\BranchData;
+
 
 class ControllerUser extends Controller
 {
@@ -17,15 +17,13 @@ class ControllerUser extends Controller
             return view('admin.home');
         }
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
     public function check_tab_login(){
         if(auth()->check()){
-            return redirect()->to('/');
+            return redirect()->route('home');
         }
-        $data_branch = new BranchData();
-        $htmlBranch = $data_branch->branchHtml();
-        return view('admin.login.index', compact('htmlBranch'));
+        return view('admin.login.index');
     }
     public function postLoginAdmin(Request $request){
 
@@ -36,16 +34,16 @@ class ControllerUser extends Controller
             'password'=>$request->password,
         ],$remember)){
 
-            return redirect()->to('/');
+            return redirect()->route('home');
         }
         else{
-            return redirect()->to('/login');
+            return redirect()->route('login');
         }
 
     }
 
     public function logout() {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/dang-nhap');
     }
 }

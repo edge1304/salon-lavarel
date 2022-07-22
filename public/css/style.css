@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.div-relative-btn button {
+.div-relative-btn .btn {
     position: absolute;
     top: 21px;
 }
@@ -88,4 +88,11 @@
 
 .modal-95 {
     max-width: 95% !important;
+}
+
+table img{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50% !important;
+    vertical-align: middle;
 }

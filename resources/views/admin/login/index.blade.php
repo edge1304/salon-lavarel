@@ -22,7 +22,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12 col-lg-10">
 					<div class="wrap d-md-flex">
-						<div class="img" style="background-image: url(/assets/images/logo/login.jpg);"></div>
+						<div class="img" style="background-image: url(/storage/images/logo/login.jpg);"></div>
 						<div class="login-wrap p-4 p-md-5">
 			      	<div class="d-flex">
 			      		<div class="w-100">
@@ -46,13 +46,13 @@
                             <label class="label" for="password">Mật khẩu</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                         </div>
-                        <div class="form-group mb-3">
-                            <label class="label" for="password">Chọn cơ sở</label>
-                            <select name="id_branch" class="form-control" required>
-                                <option value="">_______________________</option>
-                                {!!$htmlBranch!!}
-                            </select>
-                        </div>
+{{--                        <div class="form-group mb-3">--}}
+{{--                            <label class="label" for="password">Chọn cơ sở</label>--}}
+{{--                            <select name="id_branch" class="form-control" required>--}}
+{{--                                <option value="">_______________________</option>--}}
+{{--                                {!!$htmlBranch!!}--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="form-group">
                             <button type="submit"  class="form-control btn btn-primary rounded submit px-3">Đăng nhập</button>
                         </div>
