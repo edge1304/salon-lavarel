@@ -12,12 +12,14 @@ class Recusive
         $this->data = $data;
     }
 
-    public function categoryRecusive($id = 0, $text = '')
+    public function categoryRecusive($id_parent = null, $id = 0, $text = '')
     {
         foreach ($this->data as $category) {
             if ($category->id_parent == $id) {
-                $this->htmlSelect .= "<option value=" . $category->id . ">" . $text . $category->category_name . "</option>";
-                $this->categoryRecusive($category->id, $text . '--');
+                $isSelected = "";
+                if(!empty($id_parent) && $id_parent == $category->id_parent) $isSelected = "selected";
+                $this->htmlSelect .= "<option $isSelected value=" . $category->id . ">" . $text . $category->category_name . "</option>";
+                $this->categoryRecusive($id_parent,$category->id, $text . '--');
             }
         }
         return $this->htmlSelect;

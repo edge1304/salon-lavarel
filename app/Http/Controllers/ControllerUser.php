@@ -27,7 +27,6 @@ class ControllerUser extends Controller
     }
     public function postLoginAdmin(Request $request){
 
-
         $remember = $request->has('remember_me') ? true : false;
         if(auth()->attempt([
             'phone'=>$request->username,

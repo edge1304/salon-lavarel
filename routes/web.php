@@ -25,8 +25,34 @@ Route::prefix('/danh-muc')->group(function (){
         'as'=> 'admin.category.insert',
         'uses'=>'ControllerCategory@insert'
     ]);
-
-
+    Route::get('/chinh-sua/{id}',[
+        'as'=> 'admin.category.edit',
+        'uses'=>'ControllerCategory@edit'
+    ]);
+    Route::post('/chinh-sua/{id}',[
+        'as'=> 'admin.category.update',
+        'uses'=>'ControllerCategory@update'
+    ]);
+    Route::get('/xoa/{id}',[
+        'as'=> 'admin.category.delete',
+        'uses'=>'ControllerCategory@delete'
+    ]);
 });
 
+Route::prefix('/san-pham')->group(function (){
+    Route::get('/',[
+        'as'=> 'admin.product.index',
+        'uses'=>'ControllerProduct@index'
+    ]);
+
+    Route::get('/tao-moi',[
+        'as'=> 'admin.product.add',
+        'uses'=>'ControllerProduct@create'
+    ]);
+    Route::get('/chinh-sua',[
+        'as'=> 'admin.product.edit',
+        'uses'=>'ControllerProduct@edit'
+    ]);
+
+});
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Branches extends Migration
+class AddColunmDeleteAtTableCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class Branches extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('branch_name');
-            $table->timestamps();
+        Schema::table('categories', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +25,9 @@ class Branches extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+            Schema::dropIfExists('categories');
+        });
     }
 }

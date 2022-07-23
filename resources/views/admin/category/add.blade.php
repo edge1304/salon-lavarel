@@ -2,7 +2,7 @@
 
 @extends('layouts.admin')
 @section('title')
-    <title>Quản lý danh mục</title>
+    <title>Quản lý danh mục | Thêm mới</title>
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('/css/category/add.css')}}">

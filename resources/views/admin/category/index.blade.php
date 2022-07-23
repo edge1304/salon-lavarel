@@ -45,17 +45,17 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($categories as $category)
+                    @for ($i  = 0 ; $i < count($categories); $i++)
                         <tr>
-                            <td>{{$category->id}}</td>
-                            <td>{{$category->category_name}}</td>
-                            <td><img src="{{$category->category_image_link}}"></td>
+                            <td>{{$i+$page}}</td>
+                            <td>{{$categories[$i]->category_name}}</td>
+                            <td><img src="{{$categories[$i]->category_image_link}}"></td>
                             <td>
-                                <a><i class="fas fa-edit text-primary"></i></a>
-                                <a><i class="fas fa-trash text-danger"></i></a>
+                                <a href="{{route('admin.category.edit', ['id' => $categories[$i]->id])}}"><i title="chỉnh sửa" class="fas fa-edit text-primary"></i></a>
+                                <a href="{{route('admin.category.delete', ['id' => $categories[$i]->id])}}"><i title="xóa" class="fas fa-trash text-danger"></i></a>
                             </td>
                         </tr>
-                    @endforeach
+                    @endfor
                     </tbody>
                 </table>
             </div>
