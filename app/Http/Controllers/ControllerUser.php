@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\DocBlock\Tags\Author;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -32,11 +31,10 @@ class ControllerUser extends Controller
             'phone'=>$request->username,
             'password'=>$request->password,
         ],$remember)){
-
             return redirect()->route('home');
         }
         else{
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error','Tên đăng nhập hoặc mật khẩu không chính xác');
         }
 
     }

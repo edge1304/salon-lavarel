@@ -1,4 +1,15 @@
 $(function() {
+
+    $('form').on("submit",()=>{
+        const inputs = $('input.integer')
+        for(let i =0;i<inputs.length;i++){
+            $(inputs[i]).val(tryParseInt($(inputs[i]).val()))
+        }
+        const inputs_float = $('input.float')
+        for(let i =0;i<inputs_float.length;i++){
+            $(inputs_float[i]).val(tryParseFloat($(inputs_float[i]).val()))
+        }
+    })
     $("select, .select2").each(function() {
         $(this).select2({
             theme: "bootstrap4",
@@ -259,9 +270,9 @@ function info(text_tb) {
 function inputNumber(input = event.target, typeNumber = "int") {
     if (typeof input == "undefined") input = $(event.path[0])
     if ($(input).val().length == 0) $(input).val(0)
-    if (typeNumber == "int") $(input).val(tryParseInt($(input).val()))
+    if (typeNumber == "int") $(input).val(money(tryParseInt($(input).val())))
     if (typeNumber == "float") {
-        $(input).val(parseFloat($(input).val()))
+        $(input).val(money(tryParseFloat($(input).val())))
     }
 }
 

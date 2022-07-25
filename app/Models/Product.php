@@ -9,4 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function images_relationship(){ // liên kết với ảnh , bài 30
+        return $this->hasMany(ImageProduct::class);
+    }
 }

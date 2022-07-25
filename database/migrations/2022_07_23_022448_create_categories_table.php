@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->string('category_slug');
             $table->integer('id_parent') -> default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

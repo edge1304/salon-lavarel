@@ -41,6 +41,7 @@
                             <th>Tên sản phẩm</th>
                             <th>Giá bán</th>
                             <th>Danh mục</th>
+                            <th>Thưởng</th>
                             <th>Ảnh</th>
                             <th>Hành động</th>
                         </tr>
@@ -51,8 +52,9 @@
                             <tr>
                                 <td>{{$i+$page}}</td>
                                 <td>{{$products[$i]->product_name}}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{{number_format($products[$i]->product_price)}}</td>
+                                <td>{{$products[$i]->category_name}}</td>
+                                <td>{{$products[$i]->product_part}}</td>
                                 <td></td>
                                 <td>
                                     <a href="{{route('admin.product.edit', ['id' => $products[$i]->id])}}"><i title="chỉnh sửa" class="fas fa-edit text-primary"></i></a>
@@ -77,5 +79,8 @@
 @endsection
 
 @section('script')
+    @if(session()->has('success'))
+        <script>alert('{{session()->get('success')}}')</script>
+    @endif
     <script src="/js/category/index.js"></script>
 @endsection

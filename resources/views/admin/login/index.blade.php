@@ -12,6 +12,13 @@
 
 	</head>
 	<body>
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+            <button class="close" data-dismiss="alert">x</button>
+        </div>
+    @endif
+
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">

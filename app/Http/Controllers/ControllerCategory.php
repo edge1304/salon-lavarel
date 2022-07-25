@@ -37,7 +37,7 @@ class ControllerCategory extends Controller
     }
 
     function insert(Request  $request){
-        $dataFile = $this->updateFileImage($request,'image','public/images/cateogry');
+        $dataFile = $this->updateFileOneImage($request,'image','public/images/cateogry');
         $image_name = $dataFile?$dataFile['final_name']:"";
 
         $data_new_category = [
@@ -54,12 +54,11 @@ class ControllerCategory extends Controller
 
         $category = $this->category->find($id);
         $html_option_category = $this->getHtmlCategory($category->id_parent);
-        return view('admin.category.edit', compact('category','ht
-        ml_option_category'));
+        return view('admin.category.edit', compact('category','html_option_category'));
     }
 
     function update($id,Request  $request){
-        $dataFile = $this->updateFileImage($request,'image','public/images/cateogry');
+        $dataFile = $this->updateFileOneImage($request,'image','public/images/cateogry');
         $image_name = $dataFile?$dataFile['final_name']:"";
 
         $data_new_category = [

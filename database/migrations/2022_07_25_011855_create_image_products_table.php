@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColunmDeleteAtTableCategories extends Migration
+class CreateImageProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddColunmDeleteAtTableCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('image_products', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('product_id');
+            $table->string('image_path');
+            $table->string('image_name');
+            $table->timestamps ();
         });
     }
 
@@ -25,9 +29,6 @@ class AddColunmDeleteAtTableCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-            Schema::dropIfExists('categories');
-        });
+        Schema::dropIfExists('image_products');
     }
 }

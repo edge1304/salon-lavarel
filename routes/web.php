@@ -49,10 +49,16 @@ Route::prefix('/san-pham')->group(function (){
         'as'=> 'admin.product.add',
         'uses'=>'ControllerProduct@create'
     ]);
+    Route::post('/tao-moi',[
+        'as'=> 'admin.product.insert',
+        'uses'=>'ControllerProduct@insert'
+    ]);
     Route::get('/chinh-sua',[
         'as'=> 'admin.product.edit',
         'uses'=>'ControllerProduct@edit'
     ]);
 
 });
-
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
