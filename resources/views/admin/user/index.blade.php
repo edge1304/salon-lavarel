@@ -2,10 +2,10 @@
 
 @extends('layouts.admin')
 @section('title')
-    <title>Quản lý sản phẩm</title>
+    <title>Quản lý nhân viên</title>
 @endsection
 @section('css')
-    <link rel="stylesheet" href="{{asset('/css/product/index.css')}}" >
+{{--    <link rel="stylesheet" href="{{asset('/css/category/index.css')}}">--}}
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -26,10 +26,10 @@
                 </div>
                 <div class="col col-md-3">
                     <lable>Tìm kiếm</lable>
-                    <input onkeypress="searchData()" id="keyFind" value="{{$key}}" class="form-control" placeholder="Nhập tên sản phẩm">
+                    <input onkeypress="searchData()" id="keyFind" value="{{$key}}" class="form-control" placeholder="Nhập tên nhân viên">
                 </div>
                 <div class="col col-md-2 div-relative-btn">
-                    <a href="{{route('admin.product.add')}}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{route('admin.user.add')}}" class="btn btn-primary">Thêm mới</a>
                 </div>
             </div>
             <div class="container-fluid">
@@ -38,26 +38,26 @@
                         <thead>
                         <tr>
                             <th>Stt</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá bán</th>
-                            <th>Danh mục</th>
-                            <th>Thưởng</th>
-                            <th>Ảnh</th>
+                            <th>Tên nhân viên</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Email</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        @for ($i  = 0 ; $i < count($products); $i++)
+                        @for ($i  = 0 ; $i < count($users); $i++)
                             <tr>
                                 <td>{{$i+1+(($page-1)*$limit)}}</td>
-                                <td>{{$products[$i]->product_name}}</td>
-                                <td>{{number_format($products[$i]->product_price)}}</td>
-                                <td>{{$products[$i]->category->category_name}}</td>
-                                <td>{{$products[$i]->product_part}}</td>
-                                <td><img src=""></td>
+                                <td>{{$users[$i]->name}}</td>
+                                <td>{{$users[$i]->phone}}</td>
+                                <td>{{$users[$i]->address}}</td>
+                                <td>{{$users[$i]->email}}</td>
+
                                 <td>
-                                    <a href="{{route('admin.product.edit', ['id' => $products[$i]->id])}}"><i title="chỉnh sửa" class="fas fa-edit text-primary"></i></a>
+                                    <a href="{{route('admin.user.edit', ['id' => $users[$i]->id])}}"><i title="chỉnh sửa" class="fas fa-edit text-primary"></i></a>
+                                    <a href="{{route('admin.user.delete', ['id' => $users[$i]->id])}}"><i title="xóa" class="fas fa-trash text-danger"></i></a>
                                 </td>
                             </tr>
                         @endfor
@@ -65,7 +65,7 @@
                     </table>
                 </div>
                 <div>
-                    {{$products->links('pagination::bootstrap-4')}}
+                    {{$users->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>
@@ -82,5 +82,5 @@
     @if(session()->has('success'))
         <script>alert('{{session()->get('success')}}')</script>
     @endif
-    <script src="/js/product/index.js"></script>
+    <script src="/js/user/index.js"></script>
 @endsection

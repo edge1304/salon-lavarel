@@ -11,8 +11,7 @@ use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 use App\Components\Recusive;
 use Illuminate\Support\Str;
-use mysql_xdevapi\Exception;
-
+use Illuminate\Support\Facades\DB;
 class ControllerProduct extends Controller
 {
     use UploadImageTrait;
@@ -37,8 +36,8 @@ class ControllerProduct extends Controller
         $limit = $pagination['limit'];
         $page = $pagination['page'];
 
-        $products = $this->product->where('product_name','LIKE','%'.$key.'%')->join('categories','products.category_id','=','categories.id')->paginate($limit)->appends(request()->query());
-
+        $products = $this->product->where('product_name','LIKE','%'.$key.'%')->paginate($limit)->appends(request()->query());
+//        dd($products);
         return view("admin.product.index",compact('products','limit','key', 'page'));
     }
 
@@ -54,42 +53,77 @@ class ControllerProduct extends Controller
     }
     //
     function  insert(Request  $request){
-    try{
+        try{
+            DB::beginTransaction();
+            $dataCreate = [
+                'category_id' => $request->category_id,
+                'product_seo_image' => $request->product_seo_image,
+                'product_seo_title' => $request ->product_seo_title,
+                'product_name' => $request ->product_name,
+                'product_slug' => Str::slug($request->product_name),
+                'product_title_content' => $request ->product_title_content,
+                'product_content' => $request ->product_content,
+                'product_price' => $this->tryParseInt($request ->product_price),
+                'product_import_price' => $this->tryParseInt($request ->product_import_price),
+                'product_vat' => $this->tryParseInt($request ->product_vat),
+                'product_tradiscount' => $this->tryParseInt($request ->product_tradiscount),
+                'product_price_fake' => $this->tryParseInt($request ->product_price_fake),
+                'product_part' => $this->tryParseInt($request ->product_part) // part thưởng cho nhân viê)n
+            ];
+            $newInsert = $this->product->create($dataCreate);
 
-        $dataCreate = [
-            'category_id' => $request->category_id,
-            'product_seo_image' => $request->product_seo_image,
-            'product_seo_title' => $request ->product_seo_title,
-            'product_name' => $request ->product_name,
-            'product_slug' => Str::slug($request->product_name),
-            'product_title_content' => $request ->product_title_content,
-            'product_content' => $request ->product_content,
-            'product_price' => $this->tryParseInt($request ->product_price),
-            'product_import_price' => $this->tryParseInt($request ->product_import_price),
-            'product_vat' => $this->tryParseInt($request ->product_vat),
-            'product_tradiscount' => $this->tryParseInt($request ->product_tradiscount),
-            'product_price_fake' => $this->tryParseInt($request ->product_price_fake),
-            'product_part' => $this->tryParseInt($request ->product_part) // part thưởng cho nhân viê)n
-        ];
-        $newInsert = $this->product->create($dataCreate);
+            if($request->hasFile('image_product')){
+                $arrayImage = $this->updateFileMutipleImage($request->image_product, 'public/images/product');
 
-        if($request->hasFile('image_product')){
-            $arrayImage = $this->updateFileMutipleImage($request->image_product, 'public/images/product');
-
-            foreach ($arrayImage as $image){
-                $newInsert->images_relationship()->create([
-                    'image_path'=>$image['file_path'],
-                    'image_name'=>$image['final_name']
-                ]);
+                foreach ($arrayImage as $image){
+                    $newInsert->images_relationship()->create([
+                        'image_path'=>$image['file_path'],
+                        'image_name'=>$image['final_name']
+                    ]);
+                }
             }
+            DB::commit();
+            return redirect()->route('admin.product.index')->with('success','Thêm mới thành công');
         }
-        return redirect()->route('admin.product.index')->with('success','Thêm mới thành công');
+        catch (\Exception $e){
+            DB::rollBack();
+            return redirect()->route('admin.product.add')->with('error','Tên sản phẩm đã tồn tại');
+        }
     }
-    catch (Exception $e){
-        return redirect()->route('admin.product.add')->with('error','Tên sản phẩm đã tồn tại');
+
+    function edit ($id){
+
+        $product = $this->product->find($id);
+        $html_option_category = $this->getHtmlCategory($product->category_id);
+//        dd($product);
+        return view('admin.product.edit',compact('html_option_category', 'product'));
     }
+    function update ($id, Request $request){
 
-
-
+        try{
+            DB::beginTransaction();
+            $dataCreate = [
+                'category_id' => $request->category_id,
+                'product_seo_image' => $request->product_seo_image,
+                'product_seo_title' => $request ->product_seo_title,
+                'product_name' => $request ->product_name,
+                'product_slug' => Str::slug($request->product_name),
+                'product_title_content' => $request ->product_title_content,
+                'product_content' => $request ->product_content,
+                'product_price' => $this->tryParseInt($request ->product_price),
+                'product_import_price' => $this->tryParseInt($request ->product_import_price),
+                'product_vat' => $this->tryParseInt($request ->product_vat),
+                'product_tradiscount' => $this->tryParseInt($request ->product_tradiscount),
+                'product_price_fake' => $this->tryParseInt($request ->product_price_fake),
+                'product_part' => $this->tryParseInt($request ->product_part) // part thưởng cho nhân viê)n
+            ];
+            $newInsert = $this->product->find($id)->update($dataCreate);
+            DB::commit();
+            return redirect()->route('admin.product.index')->with('success','Cập nhập sản phẩm thành công');
+        }
+        catch (\Exception $e){
+            DB::rollBack();
+            return redirect()->route('admin.product.add')->with('error','Tên sản phẩm đã tồn tại');
+        }
     }
 }

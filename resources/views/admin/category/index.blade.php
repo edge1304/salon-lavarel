@@ -47,7 +47,7 @@
 
                     @for ($i  = 0 ; $i < count($categories); $i++)
                         <tr>
-                            <td>{{$i+$page}}</td>
+                            <td>{{$i+1+(($page-1)*$limit)}}</td>
                             <td>{{$categories[$i]->category_name}}</td>
                             <td><img src="{{$categories[$i]->category_image_link}}"></td>
                             <td>

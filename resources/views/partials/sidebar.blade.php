@@ -26,7 +26,6 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Danh mục sản phẩm
-
               </p>
             </a>
           </li>
@@ -36,10 +35,47 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('admin.product.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="fas fa-cart-arrow-down"></i>
                         <p>
                             Sản phẩm
 
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('admin.user.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Nhân viên
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('admin.customer.index')}}" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Khách hàng
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('admin.fundbook.index')}}" class="nav-link">
+                        <i class="fas fa-money-bill"></i>
+                        <p>
+                            Sổ quỹ
                         </p>
                     </a>
                 </li>
